@@ -1,6 +1,7 @@
 import os
 # import time
 # import cPickle
+import uuid
 import datetime
 import logging
 import flask
@@ -35,9 +36,9 @@ def classify_url():
     try:
         string_buffer = StringIO.StringIO(
             urllib.urlopen(imageurl).read())
-        imagefile = flask.request.files['imagefile']
+        filename_base = uuid.uuid1().hex +'.jpg'
         filename_ = str(datetime.datetime.now()).replace(' ', '_') + \
-            werkzeug.secure_filename(imagefile.filename)
+            werkzeug.secure_filename(filename_base)
         filename = os.path.join(UPLOAD_FOLDER, filename_)
         im = Image.open(string_buffer)
         im.save(filename)
@@ -51,7 +52,8 @@ def classify_url():
         )
 
     logging.info('Image: %s', imageurl)
-    result = eng.exp_test(filename)
+    pred = eng.exp_test(filename)
+    result=(True, pred['label'],pred['score'])
     return flask.render_template(
         'index.html', has_result=True, result=result, imagesrc=imageurl)
 
@@ -77,7 +79,7 @@ def classify_upload():
         # return flask.render_template('index.html')
 
     pred = eng.exp_test(filename)
-    result=(True, pred['label'],pred['score'],10)
+    result=(True, pred['label'],pred['score'])
     return flask.render_template(
         'index.html', has_result=True, result=result,
         imagesrc=embed_image_html(image)
