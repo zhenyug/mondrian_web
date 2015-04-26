@@ -20,7 +20,7 @@ import matlab.engine
 eng = matlab.engine.start_matlab()
 eng.addpath('~/mondrian/src_matlab/')
 
-UPLOAD_FOLDER = '~/www/mondrian_web/data'
+UPLOAD_FOLDER = 'data'
 ALLOWED_IMAGE_EXTENSIONS = set(['png', 'bmp', 'jpg', 'jpe', 'jpeg', 'gif'])
 
 app = flask.Flask(__name__)
