@@ -19,6 +19,7 @@ import exifutil
 import matlab.engine
 eng = matlab.engine.start_matlab()
 eng.addpath('~/mondrian/src_matlab/')
+# eng.addpath('~/Documents/mondrian/src_matlab/')
 
 UPLOAD_FOLDER = 'data'
 ALLOWED_IMAGE_EXTENSIONS = set(['png', 'bmp', 'jpg', 'jpe', 'jpeg', 'gif'])
@@ -104,5 +105,5 @@ def allowed_file(filename):
     )
 
 if __name__ == '__main__':
-    app.run('0.0.0.0',port=80, threaded=True)
-    # app.run(port = 5001, debug=True)
+    # app.run('0.0.0.0',port=80, threaded=True)
+    app.run(port = 5001, debug=True)
